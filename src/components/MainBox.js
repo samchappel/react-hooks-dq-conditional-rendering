@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import MenuBar from "./MenuBar";
 import { Profile, Photos, Cocktails, Pokemon } from "./pages";
 
@@ -12,11 +12,24 @@ function MainBox() {
     - Where should these methods be called?
   */
 
-  let detailsToDisplay = <div>Hi, I'm a div!</div>;
+ const [ pageSelected, setPageSelected ] = useState("Profile")
+
+ function handleClick(selected) {
+  setPageSelected(selected)
+ }
+
+ const componentMap = {
+  Profile: <Profile />,
+  Photos: <Photos />,
+  Cocktails: <Cocktails />,
+  Pokemon: <Pokemon />
+ } 
+ 
+ let detailsToDisplay = componentMap[pageSelected];
 
   return (
     <div>
-      <MenuBar />
+      <MenuBar handleClick={handleClick}/>
       {detailsToDisplay}
     </div>
   );
